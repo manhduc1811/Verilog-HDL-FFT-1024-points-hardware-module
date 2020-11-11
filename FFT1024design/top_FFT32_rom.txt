@@ -1,0 +1,38 @@
+ROM_16 rom16(
+.clk(clk),
+.in_valid(in_valid_reg),
+.rst_n(rst_n),
+.w_r(rom16_w_r),
+.w_i(rom16_w_i),
+.state(rom16_state)
+);
+
+
+ROM_8 rom8(
+.clk(clk),
+.in_valid(radix_no1_outvalid),
+.rst_n(rst_n),
+.w_r(rom8_w_r),
+.w_i(rom8_w_i),
+.state(rom8_state)
+);
+
+
+ROM_4 rom4(
+.clk(clk),
+.in_valid(radix_no2_outvalid),
+.rst_n(rst_n),
+.w_r(rom4_w_r),
+.w_i(rom4_w_i),
+.state(rom4_state)
+);
+
+
+ROM_2 rom2(
+.clk(clk),
+.in_valid(radix_no3_outvalid),
+.rst_n(rst_n),
+.w_r(rom2_w_r),
+.w_i(rom2_w_i),
+.state(rom2_state)
+);

@@ -1,0 +1,61 @@
+
+//////////////////////////////////////////////////////////////
+always@(*)begin
+
+    next_r9_valid = radix_no9_outvalid;
+    if (r9_valid)next_s10_count = s10_count + 1;
+    else next_s10_count = s10_count;
+    
+    if(r9_valid && s10_count == 1'b0)no10_state = 2'b01;
+    else if(r9_valid && s10_count == 1'b1)no10_state = 2'b10;
+    else no10_state = 2'b00;
+
+    if(radix_no9_outvalid) next_count_y = count_y + 10'd1;
+    else next_count_y = count_y;
+
+    if(next_out_valid) begin
+        next_dout_r = result_r[y_1_delay];
+        next_dout_i = result_i[y_1_delay];
+    end
+    else begin
+        next_dout_r = dout_r;
+        next_dout_i = dout_i;
+    end
+end
+//////////////////////////////////////////////////////////////
+always@(posedge clk or negedge rst_n)begin
+    if(~rst_n)begin
+        din_r_reg <= 0;
+        din_i_reg <= 0;
+        in_valid_reg <= 0;
+        s10_count <= 0;
+        r9_valid <= 0;
+        count_y <= 0;
+        assign_out <= 0;
+        over <= 0;
+        dout_r <= 0;
+        dout_i <= 0;
+        y_1_delay <= 0;
+        for (i=0;i<=1023;i=i+1) begin
+            result_r[i] <= 0;
+            result_i[i] <= 0;
+        end
+    end
+    else begin
+        din_r_reg <= {{4{din_r[11]}},din_r,8'b0};
+        din_i_reg <= {{4{din_i[11]}},din_i,8'b0};
+        in_valid_reg <= in_valid;
+        s10_count <= next_s10_count;
+        r9_valid <= next_r9_valid;
+        count_y  <= next_count_y;
+        assign_out <= next_out_valid;
+        over <= next_over;
+        y_1_delay <= y_1;
+        dout_r <= next_dout_r;
+        dout_i <= next_dout_i;
+        for (i=0;i<=1023;i=i+1) begin
+            result_r[i] <= result_r_ns[i];
+            result_i[i] <= result_i_ns[i];
+        end
+    end
+end

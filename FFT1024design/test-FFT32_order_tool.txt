@@ -1,0 +1,129 @@
+        5'd0 : begin
+           result_r_ns[31] = out_r[23:8];
+           result_i_ns[31] = out_i[23:8];
+        end
+        5'd1 : begin
+           result_r_ns[15] = out_r[23:8];
+           result_i_ns[15] = out_i[23:8];
+        end
+        5'd2 : begin
+           result_r_ns[7] = out_r[23:8];
+           result_i_ns[7] = out_i[23:8];
+        end
+        5'd3 : begin
+           result_r_ns[23] = out_r[23:8];
+           result_i_ns[23] = out_i[23:8];
+        end
+        5'd4 : begin
+           result_r_ns[3] = out_r[23:8];
+           result_i_ns[3] = out_i[23:8];
+        end
+        5'd5 : begin
+           result_r_ns[19] = out_r[23:8];
+           result_i_ns[19] = out_i[23:8];
+        end
+        5'd6 : begin
+           result_r_ns[11] = out_r[23:8];
+           result_i_ns[11] = out_i[23:8];
+        end
+        5'd7 : begin
+           result_r_ns[27] = out_r[23:8];
+           result_i_ns[27] = out_i[23:8];
+        end
+        5'd8 : begin
+           result_r_ns[1] = out_r[23:8];
+           result_i_ns[1] = out_i[23:8];
+        end
+        5'd9 : begin
+           result_r_ns[17] = out_r[23:8];
+           result_i_ns[17] = out_i[23:8];
+        end
+        5'd10 : begin
+           result_r_ns[9] = out_r[23:8];
+           result_i_ns[9] = out_i[23:8];
+        end
+        5'd11 : begin
+           result_r_ns[25] = out_r[23:8];
+           result_i_ns[25] = out_i[23:8];
+        end
+        5'd12 : begin
+           result_r_ns[5] = out_r[23:8];
+           result_i_ns[5] = out_i[23:8];
+        end
+        5'd13 : begin
+           result_r_ns[21] = out_r[23:8];
+           result_i_ns[21] = out_i[23:8];
+        end
+        5'd14 : begin
+           result_r_ns[13] = out_r[23:8];
+           result_i_ns[13] = out_i[23:8];
+        end
+        5'd15 : begin
+           result_r_ns[29] = out_r[23:8];
+           result_i_ns[29] = out_i[23:8];
+        end
+        5'd16 : begin
+           result_r_ns[0] = out_r[23:8];
+           result_i_ns[0] = out_i[23:8];
+        end
+        5'd17 : begin
+           result_r_ns[16] = out_r[23:8];
+           result_i_ns[16] = out_i[23:8];
+        end
+        5'd18 : begin
+           result_r_ns[8] = out_r[23:8];
+           result_i_ns[8] = out_i[23:8];
+        end
+        5'd19 : begin
+           result_r_ns[24] = out_r[23:8];
+           result_i_ns[24] = out_i[23:8];
+        end
+        5'd20 : begin
+           result_r_ns[4] = out_r[23:8];
+           result_i_ns[4] = out_i[23:8];
+        end
+        5'd21 : begin
+           result_r_ns[20] = out_r[23:8];
+           result_i_ns[20] = out_i[23:8];
+        end
+        5'd22 : begin
+           result_r_ns[12] = out_r[23:8];
+           result_i_ns[12] = out_i[23:8];
+        end
+        5'd23 : begin
+           result_r_ns[28] = out_r[23:8];
+           result_i_ns[28] = out_i[23:8];
+        end
+        5'd24 : begin
+           result_r_ns[2] = out_r[23:8];
+           result_i_ns[2] = out_i[23:8];
+        end
+        5'd25 : begin
+           result_r_ns[18] = out_r[23:8];
+           result_i_ns[18] = out_i[23:8];
+        end
+        5'd26 : begin
+           result_r_ns[10] = out_r[23:8];
+           result_i_ns[10] = out_i[23:8];
+        end
+        5'd27 : begin
+           result_r_ns[26] = out_r[23:8];
+           result_i_ns[26] = out_i[23:8];
+        end
+        5'd28 : begin
+           result_r_ns[6] = out_r[23:8];
+           result_i_ns[6] = out_i[23:8];
+        end
+        5'd29 : begin
+           result_r_ns[22] = out_r[23:8];
+           result_i_ns[22] = out_i[23:8];
+        end
+        5'd30 : begin
+           result_r_ns[14] = out_r[23:8];
+           result_i_ns[14] = out_i[23:8];
+        end
+        5'd31 : begin
+           result_r_ns[30] = out_r[23:8];
+           result_i_ns[30] = out_i[23:8];
+           next_over = 1'b1; 
+        end

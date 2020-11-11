@@ -1,0 +1,79 @@
+radix2 radix_no1(
+.state(rom16_state),//state ctrl
+.din_a_r(shift_16_dout_r),//fb
+.din_a_i(shift_16_dout_i),//fb
+.din_b_r(din_r_wire),//input
+.din_b_i(din_i_wire),//input
+.w_r(rom16_w_r),//twindle_r
+.w_i(rom16_w_i),//twindle_i
+.op_r(radix_no1_op_r),
+.op_i(radix_no1_op_i),
+.delay_r(radix_no1_delay_r),
+.delay_i(radix_no1_delay_i),
+.outvalid(radix_no1_outvalid)
+);
+
+
+radix2 radix_no2(
+.state(rom8_state),//state ctrl
+.din_a_r(shift_8_dout_r),//fb
+.din_a_i(shift_8_dout_i),//fb
+.din_b_r(radix_no1_op_r),//input
+.din_b_i(radix_no1_op_i),//input
+.w_r(rom8_w_r),//twindle
+.w_i(rom8_w_i),//d
+.op_r(radix_no2_op_r),
+.op_i(radix_no2_op_i),
+.delay_r(radix_no2_delay_r),
+.delay_i(radix_no2_delay_i),
+.outvalid(radix_no2_outvalid)
+);
+
+
+radix2 radix_no3(
+.state(rom4_state),//state ctrl
+.din_a_r(shift_4_dout_r),//fb
+.din_a_i(shift_4_dout_i),//fb
+.din_b_r(radix_no2_op_r),//input
+.din_b_i(radix_no2_op_i),//input
+.w_r(rom4_w_r),//twindle
+.w_i(rom4_w_i),//d
+.op_r(radix_no3_op_r),
+.op_i(radix_no3_op_i),
+.delay_r(radix_no3_delay_r),
+.delay_i(radix_no3_delay_i),
+.outvalid(radix_no3_outvalid)
+);
+
+
+radix2 radix_no4(
+.state(rom2_state),//state ctrl
+.din_a_r(shift_2_dout_r),//fb
+.din_a_i(shift_2_dout_i),//fb
+.din_b_r(radix_no3_op_r),//input
+.din_b_i(radix_no3_op_i),//input
+.w_r(rom2_w_r),//twindle
+.w_i(rom2_w_i),//d
+.op_r(radix_no4_op_r),
+.op_i(radix_no4_op_i),
+.delay_r(radix_no4_delay_r),
+.delay_i(radix_no4_delay_i),
+.outvalid(radix_no4_outvalid)
+);
+
+
+
+radix2 radix_no5(
+.state(no5_state),//state ctrl
+.din_a_r(shift_1_dout_r),//fb
+.din_a_i(shift_1_dout_i),//fb
+.din_b_r(radix_no4_op_r),//input
+.din_b_i(radix_no4_op_i),//input
+.w_r(24'd256),//twindle
+.w_i(24'd0),//d
+.op_r(out_r),
+.op_i(out_i),
+.delay_r(radix_no5_delay_r),
+.delay_i(radix_no5_delay_i),
+.outvalid()
+);
