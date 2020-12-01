@@ -6,8 +6,6 @@ https://github.com/jasonlin316/A-Single-Path-Delay-32-Point-FFT-Processor
 
 I strongly modify to extend it for FFT-1024.
 
-However, in current version, there is some error, it mays in order module.
-
 BRs,
 mducng
 
