@@ -8,5 +8,3 @@ I strongly modify to extend it for FFT-1024.
 
 BRs,
 mducng
-
-Debugging!!!!
