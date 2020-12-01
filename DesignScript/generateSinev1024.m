@@ -1,13 +1,17 @@
 clc;
 clear;
 clear all;
-N     =  128;
+N     =  1024;
 n     =  (0:1:N-1);
-fs    =  48000;
-f1    =  2000;
-f2    =  20000;
+fs    =  400000;
+%f1    =  20000;
+%f2    =  10000; %okay
+%f2    =  20000; %okay
+f1    =  20000;
+f2    =  90000;
 t     =  (0:1:N-1)*1/fs;
-x     =   2*sin(2*pi*(f1/fs)*n)+1*sin(2*pi*(f2/fs)*n);
+x     =   1*sin(2*pi*(f1/fs)*n)+1*sin(2*pi*(f2/fs)*n);
+%x     =   1*sin(2*pi*(f2/fs)*n);
 xINT  =   floor(2^8*x);
 subplot(3,1,1);
 stem(t,x);
