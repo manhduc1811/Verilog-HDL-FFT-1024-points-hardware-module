@@ -32,7 +32,7 @@ always @(*) begin
         state = 2'd2;
         next_s_count = s_count + 1;
     end
-	//codes for s_count here
+
 	case(s_count)
 	8'd128: begin 
 	 w_r = 24'b 000000000000000100000000;
@@ -550,8 +550,7 @@ always @(*) begin
 	 w_r = 24'b 000000000000000100000000;
 	 w_i = 24'b 000000000000000000000000;
 	 end
-	endcase	
-	//
+	endcase
 end
 
 always@(posedge clk or negedge rst_n)begin

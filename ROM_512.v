@@ -20,7 +20,7 @@ always @(*) begin
     else if (count >= 11'd1024 && count < 11'd1536)
         state = 2'd2;
     else state = 2'd3;
-	//codes for count here
+
 	case(count)
 	11'd1024: begin 
 	 w_r = 24'b 000000000000000100000000;
@@ -2587,8 +2587,8 @@ always @(*) begin
 	 w_i = 24'b 000000000000000000000000;
 	 next_valid = 1'b1;
 	 end
-	endcase	
-	//
+	endcase
+
 end
 
 always@(posedge clk or negedge rst_n)begin
