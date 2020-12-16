@@ -1,30 +1,34 @@
 module shift_2(
-input clk,
-input rst_n,
-input in_valid,
-input signed [23:0] din_r,
-input signed [23:0] din_i,
-output signed [23:0] dout_r,
-output signed [23:0] dout_i
+	input clk,
+	input rst_n,
+	input in_valid,
+	input signed [23:0] din_r,
+	input signed [23:0] din_i,
+	output signed [23:0] dout_r,
+	output signed [23:0] dout_i
 );
-integer i ;
+////////////////////////////////////////////
+// Internal signals
 reg [47:0] shift_reg_r ;
 reg [47:0] shift_reg_i ;
 reg [47:0] tmp_reg_r ;
 reg [47:0] tmp_reg_i ;
 reg [2:0] counter_2,next_counter_2;
 reg valid,next_valid;
-
+////////////////////////////////////////////
+// Output logic
 assign dout_r    = shift_reg_r[47:24];
 assign dout_i    = shift_reg_i[47:24];
-
+////////////////////////////////////////////
+// Next state logic
 always@(*)begin
     next_counter_2 = counter_2 + 2'd1;
     tmp_reg_r = shift_reg_r;
     tmp_reg_i = shift_reg_i;
     next_valid = valid;
 end
-
+////////////////////////////////////////////
+// State register
 always@(posedge clk or negedge rst_n)begin
     if(~rst_n)begin
         shift_reg_r <= 0;
@@ -45,5 +49,4 @@ always@(posedge clk or negedge rst_n)begin
         valid            <= next_valid;
     end
 end
-
 endmodule

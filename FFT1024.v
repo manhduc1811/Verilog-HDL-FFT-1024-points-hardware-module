@@ -1,24 +1,24 @@
 module FFT1024(
-input                     clk,
-input                     rst_n,
-input                     in_valid,
-input signed       [11:0] din_r,
-input signed       [11:0] din_i,
-output                    out_valid,
-output reg signed  [15:0] dout_r,
-output reg signed  [15:0] dout_i
+	input                     clk,
+	input                     rst_n,
+	input                     in_valid,
+	input signed       [11:0] din_r,
+	input signed       [11:0] din_i,
+	output                    out_valid,
+	output reg signed  [15:0] dout_r,
+	output reg signed  [15:0] dout_i
 );
-
-integer i;
+////////////////////////////////////////////////////////////////////////////
+// Internal signals
+integer            i;
 reg signed  [15:0] result_r[0:1023];
 reg signed  [15:0] result_i[0:1023];
 reg signed  [15:0] result_r_ns[0:1023];
 reg signed  [15:0] result_i_ns[0:1023];
 reg signed  [15:0] next_dout_r;
 reg signed  [15:0] next_dout_i;
-reg         [10:0]   count_y;
-reg         [10:0]   next_count_y;
-
+reg         [10:0] count_y;
+reg         [10:0] next_count_y;
 reg signed  [23:0] din_r_reg,din_i_reg;
 reg                in_valid_reg,r9_valid,next_r9_valid;
 reg         [1:0]  no10_state;
@@ -27,83 +27,77 @@ reg                next_over,over;
 reg                assign_out;
 reg                next_out_valid;
 reg         [9:0]  y_1_delay;
-
 wire        [23:0] out_r,out_i;
 wire        [9:0]  y_1;
 wire        [23:0] din_r_wire,din_i_wire;
-
-assign out_valid 	= assign_out;
-assign y_1 			= (count_y>10'd0)? (count_y - 10'd1) : count_y; 
-assign din_r_wire	= din_r_reg;
-assign din_i_wire   = din_i_reg;
-/////////////////////////////////////////////////////////
+///////////////////
 wire [1:0]  rom512_state;
 wire [23:0] rom512_w_r,rom512_w_i;
 wire [23:0] shift_512_dout_r,shift_512_dout_i;
 wire [23:0] radix_no1_delay_r,radix_no1_delay_i;
 wire [23:0] radix_no1_op_r,radix_no1_op_i;
 wire radix_no1_outvalid;
-
+///////////////////
 wire [1:0]  rom256_state;
 wire [23:0] rom256_w_r,rom256_w_i;
 wire [23:0] shift_256_dout_r,shift_256_dout_i;
 wire [23:0] radix_no2_delay_r,radix_no2_delay_i;
 wire [23:0] radix_no2_op_r,radix_no2_op_i;
 wire radix_no2_outvalid;
-
+///////////////////
 wire [1:0] rom128_state;
 wire [23:0]rom128_w_r,rom128_w_i;
 wire [23:0]shift_128_dout_r,shift_128_dout_i;
 wire [23:0]radix_no3_delay_r,radix_no3_delay_i;
 wire [23:0]radix_no3_op_r,radix_no3_op_i;
 wire radix_no3_outvalid;
-
+///////////////////
 wire [1:0] rom64_state;
 wire [23:0]rom64_w_r,rom64_w_i;
 wire [23:0]shift_64_dout_r,shift_64_dout_i;
 wire [23:0]radix_no4_delay_r,radix_no4_delay_i;
 wire [23:0]radix_no4_op_r,radix_no4_op_i;
 wire radix_no4_outvalid;
-
+///////////////////
 wire [1:0] rom32_state;
 wire [23:0]rom32_w_r,rom32_w_i;
 wire [23:0]shift_32_dout_r,shift_32_dout_i;
 wire [23:0]radix_no5_delay_r,radix_no5_delay_i;
 wire [23:0]radix_no5_op_r,radix_no5_op_i;
 wire radix_no5_outvalid;
-
+///////////////////
 wire [1:0] rom16_state;
 wire [23:0]rom16_w_r,rom16_w_i;
 wire [23:0]shift_16_dout_r,shift_16_dout_i;
 wire [23:0]radix_no6_delay_r,radix_no6_delay_i;
 wire [23:0]radix_no6_op_r,radix_no6_op_i;
 wire radix_no6_outvalid;
-
+///////////////////
 wire [1:0] rom8_state;
 wire [23:0]rom8_w_r,rom8_w_i;
 wire [23:0]shift_8_dout_r,shift_8_dout_i;
 wire [23:0]radix_no7_delay_r,radix_no7_delay_i;
 wire [23:0]radix_no7_op_r,radix_no7_op_i;
 wire radix_no7_outvalid;
-
+///////////////////
 wire [1:0] rom4_state;
 wire [23:0]rom4_w_r,rom4_w_i;
 wire [23:0]shift_4_dout_r,shift_4_dout_i;
 wire [23:0]radix_no8_delay_r,radix_no8_delay_i;
 wire [23:0]radix_no8_op_r,radix_no8_op_i;
 wire radix_no8_outvalid;
-
+///////////////////
 wire [1:0] rom2_state;
 wire [23:0]rom2_w_r,rom2_w_i;
 wire [23:0]shift_2_dout_r,shift_2_dout_i;
 wire [23:0]radix_no9_delay_r,radix_no9_delay_i;
 wire [23:0]radix_no9_op_r,radix_no9_op_i;
 wire radix_no9_outvalid;
-
+///////////////////
 wire [23:0]shift_1_dout_r,shift_1_dout_i;
 wire [23:0]radix_no10_delay_r,radix_no10_delay_i;
 wire [23:0]radix_no10_op_r,radix_no10_op_i;
-
+////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////Step 1///////
 radix2 radix_no1(
 .state(rom512_state),//state ctrl
@@ -135,7 +129,6 @@ ROM_512 rom512(
 .w_i(rom512_w_i),
 .state(rom512_state)
 );
-
 ////////////////////////////////////Step 2///////
 radix2 radix_no2(
 .state(rom256_state),//state ctrl
@@ -407,7 +400,8 @@ shift_1 shift_1(
 .dout_r(shift_1_dout_r),
 .dout_i(shift_1_dout_i)
 );
-/////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+// Next state logic
 always@(*)begin
     next_r9_valid = radix_no9_outvalid;
     if (r9_valid)next_s10_count = s10_count + 1;
@@ -429,8 +423,8 @@ always@(*)begin
         next_dout_i = dout_i;
     end
 end
-
-/////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+// State register
 always@(posedge clk or negedge rst_n)begin
     if(~rst_n)begin
         din_r_reg 		<= 0;
@@ -467,13 +461,21 @@ always@(posedge clk or negedge rst_n)begin
         end
     end
 end
-/////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+// Output logic
+assign out_valid 	= assign_out;
+assign y_1 			= (count_y>10'd0)? (count_y - 10'd1) : count_y; 
+assign din_r_wire	= din_r_reg;
+assign din_i_wire   = din_i_reg;
+////////////////////////////////////////////////////////////////////////////
+// Rev. ordering
 always @(*) begin
     next_over = over;
     for (i=0;i<=1023;i=i+1) begin
         result_r_ns[i] = result_r[i];
         result_i_ns[i] = result_i[i];
     end
+	
     if(next_over==1'b1)next_out_valid = 1'b1;
     else next_out_valid = assign_out;
 

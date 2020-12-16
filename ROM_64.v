@@ -1,18 +1,19 @@
 module ROM_64(
-input clk,
-input in_valid,
-input rst_n,
-output reg [23:0] w_r,
-output reg [23:0] w_i,
-output reg[1:0] state
+	input clk,
+	input in_valid,
+	input rst_n,
+	output reg [23:0] w_r,
+	output reg [23:0] w_i,
+	output reg[1:0] state
 );
-
-reg valid;
+////////////////////////////////////////////
+// Internal signals
 reg [10:0] count,next_count;
 reg [6:0] s_count,next_s_count;
-
+////////////////////////////////////////////
+// Next state logic
 always @(*) begin
-    if(in_valid || valid)
+    if(in_valid)
     begin 
         next_count = count + 1;
         next_s_count = s_count;
@@ -296,7 +297,8 @@ always @(*) begin
 	 end
 	endcase
 end
-
+////////////////////////////////////////////
+// State register
 always@(posedge clk or negedge rst_n)begin
     if(~rst_n)begin
         count <= 0;

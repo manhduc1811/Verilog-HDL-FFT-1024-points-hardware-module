@@ -1,14 +1,17 @@
 module ROM_512(
-input clk,
-input in_valid,
-input rst_n,
-output reg [23:0] w_r,
-output reg [23:0] w_i,
-output reg[1:0] state
+	input clk,
+	input in_valid,
+	input rst_n,
+	output reg [23:0] w_r,
+	output reg [23:0] w_i,
+	output reg[1:0] state
 );
-
+////////////////////////////////////////////
+// Internal signals
 reg valid,next_valid;
 reg [10:0] count,next_count;
+////////////////////////////////////////////
+// Next state logic
 always @(*) begin
     if(in_valid || valid)next_count = count + 1;
     else next_count = count;
@@ -2588,9 +2591,9 @@ always @(*) begin
 	 next_valid = 1'b1;
 	 end
 	endcase
-
 end
-
+////////////////////////////////////////////
+// State register
 always@(posedge clk or negedge rst_n)begin
     if(~rst_n)begin
         count <= 0;

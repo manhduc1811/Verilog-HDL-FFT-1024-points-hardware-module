@@ -1,35 +1,39 @@
 module shift_256(
-input clk,
-input rst_n,
-input in_valid,
-input signed [23:0] din_r,
-input signed [23:0] din_i,
-output signed [23:0] dout_r,
-output signed [23:0] dout_i
+	input clk,
+	input rst_n,
+	input in_valid,
+	input signed [23:0] din_r,
+	input signed [23:0] din_i,
+	output signed [23:0] dout_r,
+	output signed [23:0] dout_i
 );
-integer i ;
+////////////////////////////////////////////
+// Internal signals
 reg [6143:0] shift_reg_r ;
 reg [6143:0] shift_reg_i ;
 reg [6143:0] tmp_reg_r ;
 reg [6143:0] tmp_reg_i ;
 reg [9:0] counter_256,next_counter_256;
 reg valid,next_valid;
-
+////////////////////////////////////////////
+// Output logic
 assign dout_r    = shift_reg_r[6143:6120];
 assign dout_i    = shift_reg_i[6143:6120];
-
+////////////////////////////////////////////
+// Next state logic
 always@(*)begin
     next_counter_256 = counter_256 + 9'd1;
     tmp_reg_r = shift_reg_r;
     tmp_reg_i = shift_reg_i;
     next_valid = valid;
 end
-
+////////////////////////////////////////////
+// State register
 always@(posedge clk or negedge rst_n)begin
     if(~rst_n)begin
         shift_reg_r <= 0;
         shift_reg_i <= 0;
-        counter_256  <= 0;
+        counter_256 <= 0;
         valid       <= 0;
     end
     else 
@@ -45,5 +49,4 @@ always@(posedge clk or negedge rst_n)begin
         valid            <= next_valid;
     end
 end
-
 endmodule
